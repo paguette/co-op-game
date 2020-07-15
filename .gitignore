@@ -60,3 +60,9 @@ crashlytics-build.properties
 
 *.bin
 *.dll
+
+Library/
+Logs/
+Temp/
+
+*.vscode*
