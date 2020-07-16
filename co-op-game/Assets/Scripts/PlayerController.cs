@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+using UnityEngine.Networking;
+
+public class PlayerController : NetworkBehaviour
 {
     public float playerSpeed = 1;
     private Rigidbody2D playerRigidbody;
@@ -18,13 +20,13 @@ public class PlayerController : MonoBehaviour
     }
 
     void FixedUpdate() {
-        //Store the current horizontal input in the float moveHorizontal.
-        float moveHorizontal = Input.GetAxis("Horizontal");
+        if (!isLocalPlayer) {
+            return;
+        }
 
-        //Store the current vertical input in the float moveVertical.
+        float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
-        //Use the two store floats to create a new Vector2 variable movement.
         Vector2 movement = new Vector2(moveHorizontal, moveVertical);
 
         playerRigidbody.velocity = (movement * playerSpeed);
