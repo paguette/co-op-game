@@ -6,7 +6,9 @@ using UnityEngine.Networking;
 
 public class PlayerController : NetworkBehaviour
 {
-    public float playerSpeed = 1;
+    public float speed = 1;
+    public float damage = 1;
+
     private Rigidbody2D playerRigidbody;
 
     // Start is called before the first frame update
@@ -14,9 +16,8 @@ public class PlayerController : NetworkBehaviour
         playerRigidbody = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update() {
-        
+    public virtual void Attack(float attackHorizontal, float attackVertical) {
+
     }
 
     void FixedUpdate() {
@@ -29,6 +30,11 @@ public class PlayerController : NetworkBehaviour
 
         Vector2 movement = new Vector2(moveHorizontal, moveVertical);
 
-        playerRigidbody.velocity = (movement * playerSpeed);
+        playerRigidbody.velocity = (movement * speed);
+
+        float attackHorizontal = Input.GetAxis("FireHorizontal");
+        float attackVertical = Input.GetAxis("FireVertical");
+
+        Attack(attackHorizontal, attackVertical);
     }
 }
